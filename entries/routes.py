@@ -4,11 +4,11 @@ from sqlalchemy.orm import Session
 
 from db import SessionLocal
 from db import entries as db_entries
-from .schemas import Entry
+from .schemas import Entry, CreateEntry
 
 
 def get_db():
-    db = SessionLocal
+    db = SessionLocal()
     try:
         yield db
     finally:
@@ -24,7 +24,7 @@ def get_entry(entry_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/browse/", response_model=Entry)
-def create_entry(entry: Entry, db: Session = Depends(get_db)):
+def create_entry(entry: CreateEntry, db: Session = Depends(get_db)):
     entries = db_entries.create_entry(db, entry)
     return entries
 
