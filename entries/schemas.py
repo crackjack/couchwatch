@@ -4,9 +4,6 @@ from typing import Optional
 
 class BaseEntry(BaseModel):
     name: str
-
-
-class CreateEntry(BaseEntry):
     netflix_id: Optional[str] = None
 
 
