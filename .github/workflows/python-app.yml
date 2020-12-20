@@ -22,8 +22,7 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pipenv
+        curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
         pipenv install
     - name: Lint with flake8
       run: |

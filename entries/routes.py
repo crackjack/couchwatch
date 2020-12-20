@@ -9,11 +9,11 @@ from .schemas import Entry
 router = APIRouter()
 
 
-@router.get("/browse/{entry_id}", response_model=Entry, responses={
+@router.get("/browse/{show_id}", response_model=Entry, responses={
     404: {"detail": "Entry not found."}
 })
-def get_entry(netflix_id: str, db: Session = Depends(get_db)):
-    entry = db_entries.get_single_entry(db, netflix_id=netflix_id)
+def get_entry(show_id: str, db: Session = Depends(get_db)):
+    entry = db_entries.get_single_entry(db, show_id=show_id)
     if not entry:
         raise HTTPException(status_code=404, detail="Entry not found.")
     return entry
@@ -35,10 +35,10 @@ def get_entries(db: Session = Depends(get_db)):
     return entries
 
 
-@router.delete("/browse/{entry_id}", response_class=Response, responses={
+@router.delete("/browse/{show_id}", response_class=Response, responses={
     200: {"message": "Successfully Deleted"},
     404: {"message": "Entry not found."}
 })
-def delete_entry(netflix_id: str, db: Session = Depends(get_db)):
-    return Response(status_code=200) if db_entries.delete_entry(db, netflix_id=netflix_id) else Response(status_code=404)
+def delete_entry(show_id: str, db: Session = Depends(get_db)):
+    return Response(status_code=200) if db_entries.delete_entry(db, show_id=show_id) else Response(status_code=404)
 
