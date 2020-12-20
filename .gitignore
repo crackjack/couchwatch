@@ -139,3 +139,6 @@ cython_debug/
 
 # IDEs
 .idea/
+
+# Test DB
+test.db
