@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from db import sqlite_engine
 from entries import routes as entry_routes
-from entries import models as entry_models
+from entries import schemas as entry_schemas
 
 app = FastAPI()
 
@@ -10,7 +10,7 @@ app = FastAPI()
 app.include_router(entry_routes.router)
 
 # create tables for modules
-entry_models.Base.metadata.create_all(bind=sqlite_engine)
+entry_schemas.Base.metadata.create_all(bind=sqlite_engine)
 
 
 @app.get("/")
