@@ -1,12 +1,17 @@
-import os
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 TEST_DATABASE = "sqlite:///./test.db"
 
-test_sqlite_engine = create_engine(TEST_DATABASE, connect_args={"check_same_thread": False})
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_sqlite_engine)
+test_sqlite_engine = create_engine(
+    TEST_DATABASE,
+    connect_args={"check_same_thread": False}
+)
+TestingSessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=test_sqlite_engine
+)
 
 
 def override_get_db():
