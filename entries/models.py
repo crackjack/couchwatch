@@ -37,14 +37,14 @@ class Entry(BaseModel):
     show_id: str
     title: str
     type: EntryType = Field(..., title="Type of Entry")
-    directors: Optional[List[Director]]
-    casts: Optional[List[Actor]]
-    countries: Optional[List[Country]]
+    directors: Optional[List[Director]] = []
+    casts: Optional[List[Actor]] = []
+    countries: Optional[List[Country]] = []
     date_added: date
     release_year: str
     rating: EntryRating = Field(..., title="Viewer Rating")
     duration: str
-    listed_in: Optional[List[Genre]]
+    listed_in: Optional[List[Genre]] = []
     description: Optional[str]
 
     class Config:

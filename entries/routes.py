@@ -20,13 +20,18 @@ def get_entry(show_id: str, db: Session = Depends(get_db)):
 
 
 @router.post("/browse/", status_code=status.HTTP_201_CREATED, response_model=Entry, responses={
-    400: {"detail": "Something bad happened."}
+    201: {"detail": "Entry Successfully Created"},
+    409: {"detail": "Entry already exists"},
+    500: {"detail": "Something bad happened."}
 })
 def create_entry(entry: Entry, db: Session = Depends(get_db)):
-    entry = db_entries.create_entry(db, entry)
-    if not entry:
-        raise HTTPException(status_code=400, detail="Something bad happened.")
-    return entry
+    if not db_entries.get_single_entry(db, entry.show_id):
+        entry = db_entries.create_entry(db, entry)
+        if not entry:
+            raise HTTPException(status_code=500, detail="Something bad happened.")
+        return entry
+    else:
+        raise HTTPException(status_code=409, detail="Entry already exists.")
 
 
 @router.get("/browse/", response_model=List[Entry])
