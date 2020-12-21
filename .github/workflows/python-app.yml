@@ -23,7 +23,6 @@ jobs:
     - name: Install dependencies
       run: |
         curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-        pipenv shell
         pipenv install
 #    - name: Lint with flake8
 #      run: |
