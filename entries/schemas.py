@@ -47,9 +47,11 @@ class EntryRating(str, enum.Enum):
     R = "R"
     NR = "NR"
     PG_13 = "PG-13"
+    TV_G = "TV-G"
     TV_PG = "TV-PG"
     TV_MA = "TV-MA"
     TV_14 = "TV-14"
+    TV_Y = "TV-Y"
     TV_Y7 = "TV-Y7"
     TV_Y7_FV = "TV-Y7-FV"
 

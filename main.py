@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from db import sqlite_engine
 from entries import routes as entry_routes
 from entries import schemas as entry_schemas
+import requests
 
 from utils import convert_bytes_to_json_string
 
@@ -20,16 +21,19 @@ entry_schemas.Base.metadata.create_all(bind=sqlite_engine)
     response_class=HTMLResponse
 )
 def home():
-    table_rows = """
-        <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-        </tr>
-    """
+    response = requests.get("http://localhost:8000/browse/")
+    table_rows = f""""""
+    for entry in response.json():
+        table_rows += f"""
+            <tr>
+                <td>{entry['show_id']}</td>
+                <td>{entry['title']}</td>
+                <td>{entry['type']}</td>
+                <td>{entry['duration']}</td>
+                <td>{entry['date_added']}</td>
+                <td>{entry['release_year']}</td>
+            </tr>
+        """
     return f"""
     <!DOCTYPE html>
     <html>
