@@ -4,8 +4,7 @@ from fastapi.testclient import TestClient
 from main import app
 from tests import override_get_db, test_sqlite_engine
 
-from entries.routes import get_db
-from entries.models import Base
+from db import get_db, Base
 
 
 app.dependency_overrides[get_db] = override_get_db
