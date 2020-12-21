@@ -12,6 +12,8 @@ sqlalchemy = "*"
 pytest = "*"
 requests = "*"
 flake8 = "*"
+pandas = "*"
+python-multipart = "*"
 
 [requires]
 python_version = "3.8"

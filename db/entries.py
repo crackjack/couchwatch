@@ -25,20 +25,24 @@ def create_entry(db: Session, entry: Entry):
     )
 
     for director in entry.directors:
-        if not director_exists(db, director.name):
-            db_entry.directors.append(DirectorTable(name=director.name))
+        name = director.name.strip()
+        if not (name and director_exists(db, name)):
+            db_entry.directors.append(DirectorTable(name=name))
 
     for cast in entry.casts:
-        if not cast_exists(db, cast.name):
-            db_entry.casts.append(ActorTable(name=cast.name))
+        name = cast.name.strip()
+        if not (name and cast_exists(db, name)):
+            db_entry.casts.append(ActorTable(name=name))
 
     for country in entry.countries:
-        if not country_exists(db, country.name):
-            db_entry.countries.append(CountryTable(name=country.name))
+        name = country.name.strip()
+        if not (name and country_exists(db, name)):
+            db_entry.countries.append(CountryTable(name=name))
 
     for genre in entry.listed_in:
-        if not genre_exists(db, genre.name):
-            db_entry.listed_in.append(GenreTable(name=genre.name))
+        name = genre.name.strip()
+        if not (name and genre_exists(db, name)):
+            db_entry.listed_in.append(GenreTable(name=name))
 
     db.add(db_entry)
     db.commit()
@@ -64,4 +68,3 @@ def country_exists(db: Session, name: str):
 
 def genre_exists(db: Session, name: str):
     return False if not db.query(GenreTable).filter(GenreTable.name == name).first() else True
-
