@@ -14,6 +14,7 @@ requests = "*"
 flake8 = "*"
 pandas = "*"
 python-multipart = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.8"
