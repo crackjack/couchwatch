@@ -22,7 +22,7 @@ entry_schemas.Base.metadata.create_all(bind=sqlite_engine)
 )
 def home():
     response = requests.get("http://localhost:8000/browse/")
-    table_rows = f""""""
+    table_rows = """"""
     for entry in response.json():
         table_rows += f"""
             <tr>
@@ -39,10 +39,13 @@ def home():
     <html>
         <head>
             <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="viewport"
+                content="width=device-width, initial-scale=1">
             <title>Welcome to Couch Watch</title>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bulma.min.css">
+            <link rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+            <link rel="stylesheet"
+                    href="https://cdn.datatables.net/1.10.22/css/dataTables.bulma.min.css">
         </head>
         <body>
             <section class="hero">
@@ -82,10 +85,14 @@ def home():
             </tr>
         </tfoot>
     </table>
-            <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-            <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
-            <script defer src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-            <script defer src="https://cdn.datatables.net/1.10.22/js/dataTables.bulma.min.js"></script>
+            <script
+                src="https://code.jquery.com/jquery-3.5.1.js"></script>
+            <script defer
+                src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+            <script defer
+                src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+            <script defer
+                src="https://cdn.datatables.net/1.10.22/js/dataTables.bulma.min.js"></script>
             <script type="text/javascript">
                 $(document).ready(function() {{
                     $('#shows').DataTable();
