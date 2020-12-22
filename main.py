@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import HTMLResponse
 from db import sqlite_engine
@@ -15,13 +16,18 @@ app.include_router(entry_routes.router)
 # create tables for modules
 entry_schemas.Base.metadata.create_all(bind=sqlite_engine)
 
+# Change the URL based on environment
+BASE_URL = "http://localhost:8000" \
+    if os.environ.get("DEBUG", "true").lower() == "true" \
+    else "https://couchwatch.uc.r.appspot.com/"
+
 
 @app.get(
     "/",
     response_class=HTMLResponse
 )
 def home():
-    response = requests.get("http://localhost:8000/browse/")
+    response = requests.get(f"{BASE_URL}/browse/")
     table_rows = """"""
     for entry in response.json():
         table_rows += f"""
