@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
 
 from entries.models import Entry
-from entries.schemas import EntryTable, DirectorTable, ActorTable, CountryTable, GenreTable
+from entries.schemas import EntryTable, DirectorTable, \
+    ActorTable, CountryTable, GenreTable
 
 
 def get_single_entry(db: Session, show_id: str):
@@ -51,20 +52,30 @@ def create_entry(db: Session, entry: Entry):
 
 
 def delete_entry(db: Session, show_id: str):
-    return db.query(EntryTable).filter(EntryTable.show_id == show_id).delete(synchronize_session="fetch")
+    return db.query(EntryTable).filter(
+        EntryTable.show_id == show_id
+    ).delete(synchronize_session="fetch")
 
 
 def director_exists(db: Session, name: str):
-    return False if not db.query(DirectorTable).filter(DirectorTable.name == name).first() else True
+    return False if not db.query(DirectorTable).filter(
+        DirectorTable.name == name
+    ).first() else True
 
 
 def cast_exists(db: Session, name: str):
-    return False if not db.query(ActorTable).filter(ActorTable.name == name).first() else True
+    return False if not db.query(ActorTable).filter(
+        ActorTable.name == name
+    ).first() else True
 
 
 def country_exists(db: Session, name: str):
-    return False if not db.query(CountryTable).filter(CountryTable.name == name).first() else True
+    return False if not db.query(CountryTable).filter(
+        CountryTable.name == name
+    ).first() else True
 
 
 def genre_exists(db: Session, name: str):
-    return False if not db.query(GenreTable).filter(GenreTable.name == name).first() else True
+    return False if not db.query(GenreTable).filter(
+        GenreTable.name == name
+    ).first() else True
