@@ -5,9 +5,9 @@ name: Python Lint and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ develop ]
 
 jobs:
   build:

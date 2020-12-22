@@ -7,6 +7,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,16 +22,17 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
-      - name: Push and Deploy
-        run: ls
+        # Setup and configure gcloud CLI
+        - uses: google-github-actions/setup-gcloud@master
+          with:
+            version: '290.0.1'
+            project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+            service_account_key: ${{ secrets.GCLOUD_AUTH}}
 
-      - uses: actions/gcloud/auth@master
-        env:
-          GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
-
-      - uses: actions/gcloud/cli@master
-        with:
-          args: "app deploy --quiet --project=couchwatch"
+        # Deploy App to App Engine
+        - name: Deploy
+          run: |
+            gcloud app deploy --quiet
