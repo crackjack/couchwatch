@@ -25,14 +25,14 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-        # Setup and configure gcloud CLI
-        - uses: google-github-actions/setup-gcloud@master
-          with:
-            version: '290.0.1'
-            project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
-            service_account_key: ${{ secrets.GCLOUD_AUTH}}
+      # Setup and configure gcloud CLI
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCLOUD_AUTH}}
 
-        # Deploy App to App Engine
-        - name: Deploy
-          run: |
-            gcloud app deploy --quiet
+      # Deploy App to App Engine
+      - name: Deploy
+        run: |
+          gcloud app deploy --quiet
