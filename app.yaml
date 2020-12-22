@@ -1,0 +1,2 @@
+runtime: python38
+entrypoint: gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app
