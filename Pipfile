@@ -15,6 +15,9 @@ flake8 = "*"
 pandas = "*"
 python-multipart = "*"
 jinja2 = "*"
+gunicorn = "*"
+uvloop = "*"
+httptools = "*"
 
 [requires]
 python_version = "3.8"
