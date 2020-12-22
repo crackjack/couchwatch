@@ -1,18 +1,11 @@
-import pandas as pd
 import csv
 import requests
 from datetime import datetime
 from entries.models import Entry, Director, Actor, Country, Genre
 
 
-def convert_bytes_to_json_string(bytes):
-    data = bytes.decode('utf-8').splitlines()
-    df = pd.DataFrame(data)
-    return df.to_dict()
-
-
 def csv_to_json():
-    with open("data.csv", encoding='utf-8') as csv_file:
+    with open("sample_data.csv", encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for rows in csv_reader:
             for _ in rows:

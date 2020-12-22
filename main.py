@@ -1,11 +1,10 @@
-from fastapi import FastAPI, File, UploadFile
+import os
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from db import sqlite_engine
 from entries import routes as entry_routes
 from entries import schemas as entry_schemas
 import requests
-
-from utils import convert_bytes_to_json_string
 
 app = FastAPI()
 
@@ -15,13 +14,18 @@ app.include_router(entry_routes.router)
 # create tables for modules
 entry_schemas.Base.metadata.create_all(bind=sqlite_engine)
 
+# Change the URL based on environment
+BASE_URL = "http://localhost:8000" \
+    if os.environ.get("DEBUG", "true").lower() == "true" \
+    else "https://couchwatch.uc.r.appspot.com/"
+
 
 @app.get(
     "/",
     response_class=HTMLResponse
 )
 def home():
-    response = requests.get("http://localhost:8000/browse/")
+    response = requests.get(f"{BASE_URL}/browse/")
     table_rows = """"""
     for entry in response.json():
         table_rows += f"""
@@ -103,12 +107,7 @@ def home():
     """
 
 
-@app.post("/upload/")
-async def csv_to_json(file: UploadFile = File(...)):
-    contents = await file.read()
-    json_string = convert_bytes_to_json_string(contents)
-    return {"data": json_string}
-
+# enable the 3 lines below to run debugging locally
 # import uvicorn
 # if __name__ == "__main__":
 #     uvicorn.run(app, host="0.0.0.0", port=8000)
