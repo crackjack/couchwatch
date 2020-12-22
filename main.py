@@ -1,12 +1,10 @@
 import os
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from db import sqlite_engine
 from entries import routes as entry_routes
 from entries import schemas as entry_schemas
 import requests
-
-from utils import convert_bytes_to_json_string
 
 app = FastAPI()
 
@@ -109,12 +107,7 @@ def home():
     """
 
 
-@app.post("/upload/")
-async def csv_to_json(file: UploadFile = File(...)):
-    contents = await file.read()
-    json_string = convert_bytes_to_json_string(contents)
-    return {"data": json_string}
-
+# enable the 3 lines below to run debugging locally
 # import uvicorn
 # if __name__ == "__main__":
 #     uvicorn.run(app, host="0.0.0.0", port=8000)
